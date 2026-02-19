@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 import { useTheme } from "./theme-provider"
-import { Moon, Sun, Menu, X } from "lucide-react"
+import { Moon, Sun, Menu, X, Download } from "lucide-react"
 import { motion, AnimatePresence } from "motion/react"
 
 const navLinks = [
@@ -86,6 +86,17 @@ export function Navigation() {
                 )}
               </motion.a>
             ))}
+
+            <motion.a
+              href="/resume.pdf"
+              download="Pankaj-Mishra-Resume.pdf"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Download className="w-4 h-4" />
+              Resume
+            </motion.a>
 
             <motion.button
               onClick={toggleTheme}
@@ -195,6 +206,18 @@ export function Navigation() {
                   {link.name}
                 </motion.a>
               ))}
+              <motion.a
+                href="/resume.pdf"
+                download="Pankaj-Mishra-Resume.pdf"
+                onClick={() => setIsMobileMenuOpen(false)}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navLinks.length * 0.05 }}
+                className="flex items-center gap-2 mt-4 px-4 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+              >
+                <Download className="w-4 h-4" />
+                Download Resume
+              </motion.a>
             </motion.div>
           )}
         </AnimatePresence>

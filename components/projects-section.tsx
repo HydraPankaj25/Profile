@@ -33,6 +33,22 @@ const projects = [
         tech: ["Frappe", "ERPNext", "Python", "JavaScript"],
       },
       {
+        name: "Import Flows System (Oil Procurement & Logistics)",
+        description:
+          "Complex multi-state and international oil procurement system with advanced logistics management. Handling intra-state, inter-state, and cross-border transactions with shipping and dockyard integration.",
+        highlights: [
+          "Designed multi-tier approval workflows for procurement across different jurisdictions and regulatory requirements",
+          "Integrated dockyard and shipping management modules for seamless logistics tracking and coordination",
+          "Built advanced inventory and warehouse management for multiple storage locations and regulatory compliance",
+          "Implemented state and country-specific pricing, tax calculations, and compliance documentation",
+          "Created real-time tracking dashboards for shipments, imports, and customs clearance",
+          "Developed automated purchase order generation based on demand forecasting and supplier availability",
+          "Built supplier management with multi-location support and compliance verification",
+          "Integrated with customs and excise regulations for import documentation",
+        ],
+        tech: ["Frappe", "ERPNext", "Python", "JavaScript", "MySQL", "REST APIs"],
+      },
+      {
         name: "Flow Management System",
         description: "Enhanced project performance and scalability by optimizing backend logic and refactoring code.",
         highlights: [
@@ -76,6 +92,54 @@ const projects = [
           "Improved customer service efficiency",
         ],
         tech: ["React", "Node.js", "MySQL"],
+      },
+      {
+        name: "Supply Chain & Vendor Management Portal",
+        description: "Comprehensive vendor portal with real-time order tracking, compliance management, and performance analytics.",
+        highlights: [
+          "Multi-vendor portal with role-based access control and performance metrics",
+          "Real-time order fulfillment tracking and delivery status management",
+          "Vendor compliance verification with documentation upload and validation",
+          "Quality control integration with product inspection and rejection workflows",
+          "Invoice and payment management with automated reconciliation",
+          "Analytics dashboard showing vendor performance, delivery metrics, and cost analysis",
+        ],
+        tech: ["React", "Node.js", "Express.js", "MySQL"],
+      },
+      {
+        name: "Inventory Optimization System",
+        description: "AI-powered inventory management reducing overstock and stockouts through demand forecasting.",
+        highlights: [
+          "Demand forecasting algorithm for predictive inventory planning",
+          "Automated reorder point calculation based on consumption patterns",
+          "Multi-warehouse inventory synchronization and allocation optimization",
+          "Safety stock calculation accounting for supplier lead times and variability",
+          "Inventory aging and slow-moving item reports with disposal recommendations",
+        ],
+        tech: ["React", "Node.js", "Python", "MySQL"],
+      },
+    ],
+  },
+  {
+    company: "Personal Project",
+    projects: [
+      {
+        name: "PC Deals Hardware - E-Commerce Platform",
+        description:
+          "Comprehensive full-stack e-commerce platform for selling computer hardware and pre-built PCs with advanced custom PC building capabilities and admin management system.",
+        highlights: [
+          "Advanced product discovery with search, filtering by category/price/brand/specs, and related products recommendation",
+          "Custom PC Builder with real-time compatibility checks ensuring selected parts work together",
+          "Immersive shopping experience with product reviews, ratings, and user-generated content",
+          "Persistent shopping cart and secure checkout with integrated payment processing",
+          "User account management with order history, wishlist, and profile customization",
+          "Comprehensive admin dashboard with sales analytics, product/order/user management, and inventory control",
+          "Marketing tools including promotional codes, seasonal sales management, and category organization",
+          "Real-time toast notifications and performance optimization with lazy loading",
+          "Secure JWT-based authentication with role-based access control (RBAC)",
+          "Image processing and file handling with Multer and Sharp for product galleries",
+        ],
+        tech: ["React", "TypeScript", "Tailwind CSS", "Redux Toolkit", "Node.js", "Express.js", "Prisma", "MySQL", "JWT", "Recharts"],
       },
     ],
   },

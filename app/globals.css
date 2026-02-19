@@ -39,6 +39,8 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+
+
 .dark {
   --background: oklch(0.12 0.01 250);
   --foreground: oklch(0.93 0 0);
@@ -119,13 +121,132 @@
   * {
     @apply border-border outline-ring/50;
   }
+  
+  html:not(.dark) body {
+    background: linear-gradient(135deg, #f0f4f9 0%, #e6eef8 25%, #dce7f5 50%, #e6eef8 75%, #f0f4f9 100%) !important;
+    background-attachment: fixed !important;
+  }
+  
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background-color: var(--background) !important;
   }
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes floatBlob1 {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(30px, -50px);
+  }
+  66% {
+    transform: translate(-20px, 30px);
+  }
+}
+
+@keyframes floatBlob2 {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-40px, 20px);
+  }
+  66% {
+    transform: translate(20px, -40px);
+  }
+}
+
+@keyframes floatBlob3 {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(50px, 10px);
+  }
+  66% {
+    transform: translate(-30px, -50px);
+  }
+}
+
+html:not(.dark) {
+  background: linear-gradient(
+    -45deg,
+    #e0e7ff 0%,
+    #fce7f3 25%,
+    #cffafe 50%,
+    #fce7f3 75%,
+    #e0e7ff 100%
+  );
+  background-size: 400% 400%;
+  background-attachment: fixed;
+  animation: gradientShift 15s ease infinite;
+}
+
+html:not(.dark) body {
+  position: relative;
+  background: transparent !important;
+}
+
+/* Animated blob 1 */
+html:not(.dark) body::before {
+  content: "";
+  position: fixed;
+  top: -10%;
+  right: 10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  animation: floatBlob1 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+}
+
+/* Animated blob 2 */
+html:not(.dark) body::after {
+  content: "";
+  position: fixed;
+  bottom: 10%;
+  left: -5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle at 30% 30%, rgba(34, 197, 211, 0.12) 0%, transparent 70%);
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: floatBlob2 25s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+}
+
+/* Third blob added via pseudo element */
+html:not(.dark) .blob-3 {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle at 30% 30%, rgba(236, 72, 153, 0.1) 0%, transparent 70%);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  animation: floatBlob3 22s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(50px);
+  transform: translate(-50%, -50%);
 }
 
 ::selection {

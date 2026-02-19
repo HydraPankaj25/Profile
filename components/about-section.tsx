@@ -1,12 +1,12 @@
 "use client"
 
-import { GraduationCap, Award, Code, Rocket } from "lucide-react"
+import { GraduationCap, Award, Code, Rocket, Download } from "lucide-react"
 import { motion } from "motion/react"
 import { useInView } from "@/hooks/use-in-view"
 
 const stats = [
-  { label: "Years Experience", value: "2+", icon: Rocket },
-  { label: "Projects Delivered", value: "6+", icon: Code },
+  { label: "Years Experience", value: "2.5+", icon: Rocket },
+  { label: "Projects Delivered", value: "10+", icon: Code },
   { label: "CGPA Score", value: "9.4", icon: Award },
 ]
 
@@ -146,6 +146,20 @@ export function AboutSection() {
               <p className="text-sm text-muted-foreground">BCA Batch Topper</p>
               <p className="text-sm text-muted-foreground">Outstanding Academic Performance</p>
             </motion.div>
+
+            <motion.a
+              href="/resume.pdf"
+              download="Pankaj-Mishra-Resume.pdf"
+              initial={{ opacity: 0, x: 30 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center justify-center gap-3 p-4 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all duration-300 cursor-pointer group"
+            >
+              <Download className="w-5 h-5 group-hover:animate-bounce" />
+              Download Resume
+            </motion.a>
           </div>
         </div>
       </div>

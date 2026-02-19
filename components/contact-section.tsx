@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Sparkles } from "lucide-react"
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Sparkles, CheckCircle } from "lucide-react"
 import { motion } from "motion/react"
 import { useState } from "react"
 import { useInView } from "@/hooks/use-in-view"
@@ -15,11 +15,42 @@ export function ContactSection() {
   })
   const [isHovered, setIsHovered] = useState(false)
   const [focusedField, setFocusedField] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const mailtoLink = `mailto:pm2582001@gmail.com?subject=Portfolio Contact from ${formData.name}&body=${formData.message}%0A%0AFrom: ${formData.email}`
-    window.location.href = mailtoLink
+    setIsLoading(true)
+    setSubmitStatus('idle')
+    setErrorMessage('')
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', message: '' })
+        setTimeout(() => setSubmitStatus('idle'), 5000)
+      } else {
+        setSubmitStatus('error')
+        setErrorMessage(data.error || 'Failed to send email')
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+      setErrorMessage('Something went wrong. Please try again.')
+      console.error('Form submission error:', error)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const contactMethods = [
@@ -217,13 +248,37 @@ export function ContactSection() {
               />
             </motion.div>
 
+            {submitStatus === 'success' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="flex items-center gap-2 p-4 rounded-lg bg-green-500/10 border border-green-500/20 text-green-700 dark:text-green-400"
+              >
+                <CheckCircle className="w-5 h-5" />
+                <span>Message sent successfully! I'll get back to you soon.</span>
+              </motion.div>
+            )}
+
+            {submitStatus === 'error' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="flex items-center gap-2 p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-700 dark:text-red-400"
+              >
+                <span>{errorMessage}</span>
+              </motion.div>
+            )}
+
             <motion.button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium transition-all relative overflow-hidden group"
+              disabled={isLoading}
+              className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium transition-all relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
               onHoverStart={() => setIsHovered(true)}
               onHoverEnd={() => setIsHovered(false)}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: isLoading ? 1 : 1.02 }}
+              whileTap={{ scale: isLoading ? 1 : 0.98 }}
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.7 }}
@@ -231,11 +286,24 @@ export function ContactSection() {
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
                 initial={{ x: "-100%" }}
-                animate={isHovered ? { x: "100%" } : { x: "-100%" }}
+                animate={isHovered && !isLoading ? { x: "100%" } : { x: "-100%" }}
                 transition={{ duration: 0.5 }}
               />
-              <Send className="w-4 h-4 relative z-10" />
-              <span className="relative z-10">Send Message</span>
+              {isLoading ? (
+                <>
+                  <motion.div
+                    className="w-4 h-4 border-2 border-transparent border-t-current rounded-full"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY }}
+                  />
+                  <span className="relative z-10">Sending...</span>
+                </>
+              ) : (
+                <>
+                  <Send className="w-4 h-4 relative z-10" />
+                  <span className="relative z-10">Send Message</span>
+                </>
+              )}
             </motion.button>
           </motion.form>
         </div>

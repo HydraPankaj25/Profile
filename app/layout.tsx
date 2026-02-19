@@ -24,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`font-sans antialiased`}>
+        <div className="blob-3" />
         <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
       </body>

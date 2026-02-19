@@ -23,7 +23,7 @@ const skillCategories = [
   {
     name: "Tools & Platforms",
     icon: "🛠️",
-    skills: ["Git", "Swagger API Documentation"],
+    skills: ["Git", "Docker", "Swagger API Documentation"],
   },
   {
     name: "Other Expertise",
@@ -138,7 +138,7 @@ export function SkillsSection() {
         >
           <p className="text-muted-foreground text-sm">Always learning and exploring new technologies</p>
           <div className="flex justify-center gap-4 mt-4">
-            {["TypeScript", "Next.js", "Docker", "AWS"].map((tech, i) => (
+            {["TypeScript", "Next.js", "AWS", "Kubernetes"].map((tech, i) => (
               <motion.span
                 key={tech}
                 className="px-4 py-2 text-sm rounded-full border border-dashed border-primary/50 text-primary"
